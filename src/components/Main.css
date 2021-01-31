@@ -1,0 +1,18 @@
+#main {
+
+}
+
+
+#word-input {
+    padding-top: 100px;
+    width: 55%;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* display: block; */
+    margin: 0 auto;
+}
+
+#definitions {
+    margin-top: 50px;
+    text-align: left;
+}

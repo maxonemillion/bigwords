@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap"
+import { Button, FormControl, InputGroup } from "react-bootstrap"
 import API from "../utils/API";
 import "./Main.css"
 
@@ -13,7 +13,6 @@ const Main = () => {
             .then(res => {
                 setDefinition(res.data)
                 console.log(res.data)
-                console.log(definition.entries)
             })
     }
 
@@ -22,36 +21,51 @@ const Main = () => {
         loadDefinitions(word);
     };
 
+    const handleKeyPress = e => {
+        if (e.keyCode === 13) {
+          handleSubmit(e);
+        }
+      };
+
     return (
-        <div>
-            <Form.Control
-                autoComplete="off"
-                type="text"
-                id="movie-input"
-                placeholder="Search word"
-                onChange={(event) => setWord(event.target.value)}
-                value={word} />
-            <Button onClick={handleSubmit}>go</Button>
+        <div id="main">
+        <div id="word-input">
+            <InputGroup className="">
+                <FormControl
+                    autoComplete="off"
+                    type="text"
+                    placeholder="Search word"
+                    onChange={(event) => setWord(event.target.value)}
+                    onKeyDown={handleKeyPress}
+                    value={word}
+                />
+                <InputGroup.Append>
+                    <Button variant="outline-secondary" onClick={handleSubmit}>search</Button>
+                </InputGroup.Append>
+            </InputGroup>
+            <div id="definitions">
             {definition.entries?.map((def) => {
                 return (
                     <div>
                         {def.lexemes?.map(def => {
                             return (
-                                <ul>
+                                <div>
                                     {def.senses?.map((def) => {
                                         return (
-                                            <ul>
-                                                {def.definition}
-                                            </ul>
+                                            <h4>
+                                                {def.definition.toLowerCase()}
+                                            </h4>
                                         )
                                     })}
-                                </ul>
+                                </div>
                             )
                         })}
                     </div>
                 )
             })}
-        </div>
+            </div>
+            </div>
+            </div>
     )
 }
 
